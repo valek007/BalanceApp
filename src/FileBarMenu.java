@@ -22,6 +22,9 @@ public class FileBarMenu extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 cashFlow = new CashFlow(0,0);
 
+                ExpenseAccount.setFromIncomeField(ExpenseAccount.FROMINCOME);
+                ExpenseAccount.setFromExpenseField(ExpenseAccount.FROMEXPENSE);
+
                 ExpenseAccount.setIncomeField("0");
                 ExpenseAccount.setExpensesField("0");
                 ExpenseAccount.setBalanceArea("0");
@@ -34,6 +37,9 @@ public class FileBarMenu extends JPanel{
 
                 cashFlow.setIncome(Double.parseDouble(ExpenseAccount.getIncomeField().getText()));
                 cashFlow.setExpense(Double.parseDouble(ExpenseAccount.getExpensesField().getText()));
+
+                ExpenseAccount.setFromIncomeField(ExpenseAccount.FROMINCOME);
+                ExpenseAccount.setFromExpenseField(ExpenseAccount.FROMEXPENSE);
 
                 ExpenseAccount.setIncomeField("0");
                 ExpenseAccount.setExpensesField("0");

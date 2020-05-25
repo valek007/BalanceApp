@@ -7,8 +7,8 @@ import java.awt.event.MouseEvent;
 
 public class ExpenseAccount extends JPanel{
 
-    public static final String FROMINCOME = "Sales, transactions, salary ...";
-    public static final String FROMEXPENSE = "Shopping, rent, some loss ...";
+    public static final String FROMINCOME = "income";
+    public static final String FROMEXPENSE = "expense";
 
     private Label fromIncomeLabel = new Label("From ",2);
     private Label fromExpenseLabel = new Label("From ",2);
@@ -16,8 +16,8 @@ public class ExpenseAccount extends JPanel{
     private static JTextField fromExpenseField = new JTextField(FROMEXPENSE,15);
 
 
-    private Label incomeLabel = new Label("Income: ",2);
-    private Label expenseLabel = new Label("Expense: ",2);
+    private Label incomeLabel = new Label("income: ",2);
+    private Label expenseLabel = new Label("expense: ",2);
     private Label balanceLabel = new Label("Balance:  ",2);
     private static JTextField incomeField = new JTextField("0",6);
     private static JTextField expensesField = new JTextField("0",6);
@@ -57,6 +57,14 @@ public class ExpenseAccount extends JPanel{
 
     public static JTextField getExpensesField() {
         return expensesField;
+    }
+
+    public static JTextField getFromIncomeField() {
+        return fromIncomeField;
+    }
+
+    public static JTextField getFromExpensesField() {
+        return fromExpenseField;
     }
 
     public JTextArea getBalanceArea() {

@@ -2,10 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 public class FileBarMenu extends JPanel{
 
-    private CashFlow cashFlow = new CashFlow(0,0);
+    private CashFlow cashFlow = new CashFlow();
 
     private JMenuBar menuBar = new JMenuBar();
     private JMenu menuFile = new JMenu("File");
@@ -20,7 +21,7 @@ public class FileBarMenu extends JPanel{
         newItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cashFlow = new CashFlow(0,0);
+                cashFlow = new CashFlow();
 
                 ExpenseAccount.setFromIncomeField(ExpenseAccount.FROMINCOME);
                 ExpenseAccount.setFromExpenseField(ExpenseAccount.FROMEXPENSE);
@@ -35,6 +36,8 @@ public class FileBarMenu extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                cashFlow.setFromIncome(ExpenseAccount.getFromIncomeField().getText());
+                cashFlow.setFromExpense(ExpenseAccount.getFromExpensesField().getText());
                 cashFlow.setIncome(Double.parseDouble(ExpenseAccount.getIncomeField().getText()));
                 cashFlow.setExpense(Double.parseDouble(ExpenseAccount.getExpensesField().getText()));
 
@@ -61,6 +64,40 @@ public class FileBarMenu extends JPanel{
                 ExpenseAccount.setBalanceArea(balance);
             }
         });
+
+        exportItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("balance.txt"))){
+
+                    String fromIncomeCash = "";
+                    String fromExpenseCash = "";
+                    String incomeCash = "";
+                    String expenseCash = "";
+
+                    int counter = cashFlow.getTotalRecordCounter();
+
+                    for(int i=0; i<counter; i++){
+                        fromIncomeCash = cashFlow.getFromIncomeCash().get(i);
+                        fromExpenseCash = cashFlow.getFromExpenseCash().get(i);
+                        incomeCash = "" + cashFlow.getIncomeCash().get(i);
+                        expenseCash = "" + cashFlow.getExpenseCash().get(i);
+                        writer.write("From " + fromIncomeCash + " income: " + incomeCash + "$ \n");
+                        writer.write("From " + fromExpenseCash + " expense: " + expenseCash + "$ \n");
+                    }
+
+                    writer.write("\nTotal income: " + cashFlow.getTotalIncomeCash() + "$ \n");
+                    writer.write("Total expense: " + cashFlow.getTotalExpenseCash() + "$ \n");
+                    writer.write("Balance: " + cashFlow.getTotalBalance() + "$ \n\n");
+
+                }  catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
+
+
 
 
         menuFile.add(newItem);

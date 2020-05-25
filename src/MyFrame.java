@@ -13,8 +13,9 @@ public class MyFrame extends JFrame {
 
     public MyFrame() throws HeadlessException {
 
-        add(barMenu);
         add(account, BorderLayout.SOUTH);
+        add(barMenu);
+
 
         setTitle("Wallet Balance");
         setIconImage(appIcon);

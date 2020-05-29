@@ -69,7 +69,7 @@ public class FileBarMenu extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("balance.txt"))){
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("balance.txt",true))){
 
                     String fromIncomeCash = "";
                     String fromExpenseCash = "";
